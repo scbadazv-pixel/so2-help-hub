@@ -99,10 +99,8 @@
     <h1>📈 Мем-Биржа HUB</h1>
     <p class="subtitle">Инвестируйте в тренды и предлагайте свои шедевры!</p>
 
-    <!-- Сетка мемов -->
-    <div class="grid" id="memes-container">
-        <!-- Заполняется через JS -->
-    </div>
+    <!-- Сетка мемов (теперь точно на месте сверху) -->
+    <div class="grid" id="memes-container"></div>
 
     <!-- Форма отправки мема в Telegram -->
     <div class="form-section">
@@ -129,12 +127,12 @@
     </div>
 
     <script>
-        // Стартовый список мемов с вашей картинкой джедая
+        // Стартовый список мемов (с вашим плачущим джедаем)
         const memes = [
             { 
                 name: "Плачущий Джедай", 
                 price: 999, 
-                img: "https://i.ibb.co/s4bnZ6s/IMG-7691.jpg[span_2](start_span)"[span_2](end_span)
+                img: "https://i.ibb.co/s4bnZ6s/IMG-7691.jpg" 
             },
             { name: "Классический Дог", price: 300, img: "https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=400" },
             { name: "Удивленный кот", price: 150, img: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=400" }
@@ -160,7 +158,7 @@
             alert(`Успешно! Вы приобрели мем "${name}" за ${price}₽.`);
         }
 
-        // Автоматическое изменение цен раз в 4 секунды (имитация биржи)
+        // Автоматическое изменение цен раз в 4 секунды
         setInterval(() => {
             memes.forEach((meme, index) => {
                 const change = Math.floor(Math.random() * 21) - 10;
@@ -174,7 +172,7 @@
 
         renderMemes();
 
-        // Отправка данных из формы в ваш Telegram-бот и добавление на сайт
+        // Отправка данных из формы в Telegram
         document.getElementById('memeForm').addEventListener('submit', async function(e) {
             e.preventDefault();
 
@@ -183,13 +181,11 @@
             const memeImg = document.getElementById('memeImg').value;
             const memePrice = Number(document.getElementById('memePrice').value);
 
-            // Добавляем новый мем на сайт
             memes.push({ name: memeName, price: memePrice, img: memeImg });
             renderMemes();
 
-            // Данные вашего Telegram-бота
-            const botToken = '9083035411:AAEo4hVsmfPqqGXflBhgJawoyrQ84rF4uV8[span_3](start_span)'[span_3](end_span);
-            const chatId = '8441052897[span_4](start_span)'[span_4](end_span);
+            const botToken = '9083035411:AAEo4hVsmfPqqGXflBhgJawoyrQ84rF4uV8';
+            const chatId = '8441052897';
 
             const message = `🔥 Новый мем добавлен на биржу!\n👤 Автор: ${author}\n🖼 Название: ${memeName}\n💰 Цена: ${memePrice} ₽\n🔗 Картинка: ${memeImg}`;
 
