@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STOPLAY - Маркет Мемов</title>
+    <title>STOPLAY — Торговая площадка скинов</title>
     <style>
         * {
             box-sizing: border-box;
@@ -15,14 +15,14 @@
             background-color: #0b0f17;
             color: #ffffff;
             min-height: 100vh;
-            padding-bottom: 40px;
+            padding-bottom: 50px;
         }
 
-        /* Шапка в стиле Stoplay */
+        /* Шапка сайта */
         header {
             background-color: #121824;
             border-bottom: 1px solid #1e293b;
-            padding: 12px 20px;
+            padding: 12px 25px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -40,24 +40,23 @@
             font-size: 1.2rem;
         }
         .logo {
-            font-size: 1.25rem;
+            font-size: 1.3rem;
             font-weight: 900;
             color: #38bdf8;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
             text-transform: uppercase;
         }
         .nav-links {
             display: flex;
-            gap: 15px;
+            gap: 20px;
         }
         .nav-link {
             color: #64748b;
             text-decoration: none;
             font-weight: 600;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             cursor: pointer;
             transition: 0.2s;
-            text-align: center;
         }
         .nav-link:hover, .nav-link.active {
             color: #38bdf8;
@@ -66,42 +65,42 @@
         .user-panel {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
         .balance-box {
             background: #192231;
-            padding: 6px 12px;
+            padding: 6px 14px;
             border-radius: 6px;
             border: 1px solid #2a3649;
             font-weight: 700;
             color: #4ade80;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
         }
         .user-avatar {
-            width: 36px;
-            height: 36px;
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
             object-fit: cover;
             border: 2px solid #38bdf8;
         }
 
-        /* Контент */
+        /* Контейнер */
         .main-container {
-            max-width: 600px;
-            margin: 20px auto;
+            max-width: 900px;
+            margin: 25px auto;
             padding: 0 15px;
         }
 
         .page-title {
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             font-weight: 800;
-            margin-bottom: 4px;
+            margin-bottom: 5px;
             color: #f8fafc;
         }
         .page-subtitle {
             color: #64748b;
-            margin-bottom: 20px;
-            font-size: 0.85rem;
+            margin-bottom: 25px;
+            font-size: 0.9rem;
         }
 
         .content-section {
@@ -111,16 +110,15 @@
             display: block;
         }
 
-        /* СЕТКА ТОВАРОВ ПО 2 В РЯД (КАК НА STOPLAY) */
+        /* Сетка маркета (по 2 в ряд) */
         .market-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            margin-bottom: 30px;
+            gap: 15px;
         }
         .item-card {
             background: #141b26;
-            border-radius: 10px;
+            border-radius: 12px;
             border: 1px solid #1e293b;
             overflow: hidden;
             display: flex;
@@ -132,30 +130,35 @@
         }
         .item-img-wrap {
             width: 100%;
-            height: 140px;
+            height: 160px;
             background: #0b0f17;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             position: relative;
         }
         .item-img-wrap img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            width: 85%;
+            height: 85%;
+            object-fit: contain;
         }
         .item-body {
-            padding: 10px;
+            padding: 12px;
             display: flex;
             flex-direction: column;
             flex-grow: 1;
             justify-content: space-between;
         }
         .item-title {
-            font-size: 0.85rem;
+            font-size: 0.95rem;
             font-weight: 700;
-            margin-bottom: 8px;
+            margin-bottom: 4px;
             color: #f1f5f9;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+        }
+        .item-wear {
+            font-size: 0.75rem;
+            color: #64748b;
+            margin-bottom: 10px;
         }
         .item-footer {
             display: flex;
@@ -163,46 +166,74 @@
             justify-content: space-between;
         }
         .item-price {
-            font-size: 0.95rem;
+            font-size: 1.05rem;
             font-weight: 800;
             color: #4ade80;
         }
-        .btn-buy {
+        .btn-action {
             background-color: #38bdf8;
             color: #0b0f17;
             border: none;
-            padding: 6px 10px;
+            padding: 7px 14px;
             border-radius: 6px;
             font-weight: 700;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             cursor: pointer;
             transition: 0.2s;
         }
-        .btn-buy:hover {
+        .btn-action:hover {
             background-color: #0ea5e9;
         }
 
-        /* Форма добавления */
-        .sell-form-card {
+        /* Профиль */
+        .profile-card {
             background: #141b26;
             border: 1px solid #1e293b;
             border-radius: 12px;
-            padding: 20px;
+            padding: 25px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 25px;
         }
-        .sell-form-card h3 {
+        .profile-card img {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #38bdf8;
+        }
+        .profile-info h2 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+        .profile-info p {
+            color: #64748b;
+            font-size: 0.85rem;
+        }
+
+        /* Форма продажи / пополнения */
+        .form-card {
+            background: #141b26;
+            border: 1px solid #1e293b;
+            border-radius: 12px;
+            padding: 25px;
+            max-width: 500px;
+        }
+        .form-card h3 {
             color: #38bdf8;
             margin-bottom: 15px;
             font-size: 1.1rem;
         }
         .form-group {
-            margin-bottom: 12px;
+            margin-bottom: 15px;
             text-align: left;
         }
         .form-group label {
             display: block;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: #64748b;
-            margin-bottom: 4px;
+            margin-bottom: 5px;
             font-weight: 600;
         }
         .form-group input {
@@ -223,35 +254,12 @@
             padding: 10px;
             border-radius: 6px;
             font-weight: bold;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             cursor: pointer;
-            margin-top: 5px;
+            transition: 0.2s;
         }
-
-        /* Профиль */
-        .profile-box {
-            background: #141b26;
-            border: 1px solid #1e293b;
-            border-radius: 12px;
-            padding: 20px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        .profile-box img {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid #38bdf8;
-        }
-        .profile-details h2 {
-            font-size: 1.1rem;
-            margin-bottom: 3px;
-        }
-        .profile-details p {
-            color: #64748b;
-            font-size: 0.8rem;
+        .btn-submit:hover {
+            background: #22c55e;
         }
     </style>
 </head>
@@ -265,60 +273,77 @@
         </div>
         <div class="nav-links">
             <span class="nav-link active" onclick="switchTab('market', this)">Маркет</span>
-            <span class="nav-link" onclick="switchTab('add', this)">Продать</span>
+            <span class="nav-link" onclick="switchTab('inventory', this)">Инвентарь</span>
+            <span class="nav-link" onclick="switchTab('sell', this)'>Продать</span>
             <span class="nav-link" onclick="switchTab('profile', this)">Профиль</span>
         </div>
         <div class="user-panel">
-            <div class="balance-box" id="header-balance">12,450 ₽</div>
-            <img src="https://i.ibb.co/s4bnZ6s/IMG-7691.jpg" alt="Avatar" class="user-avatar">
+            <div class="balance-box" id="user-balance">14,250 ₽</div>
+            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100" alt="Avatar" class="user-avatar">
         </div>
     </header>
 
     <div class="main-container">
 
-        <!-- МАРКЕТ -->
+        <!-- РАЗДЕЛ: МАРКЕТ -->
         <div id="section-market" class="content-section active">
-            <div class="page-title">Маркет Мемов</div>
-            <div class="page-subtitle">Живые котировки рынка активов</div>
+            <div class="page-title">Торговая площадка</div>
+            <div class="page-subtitle">Мг买ая покупка и продажа игровых предметов</div>
             <div class="market-grid" id="market-container">
                 <!-- Заполняется JS -->
             </div>
         </div>
 
-        <!-- ПРОДАТЬ / ПРЕДЛОЖИТЬ -->
-        <div id="section-add" class="content-section">
-            <div class="sell-form-card">
-                <h3>Выставить мем</h3>
-                <form id="memeForm">
+        <!-- РАЗДЕЛ: ИНВЕНТАРЬ -->
+        <div id="section-inventory" class="content-section">
+            <div class="page-title">Мой инвентарь</div>
+            <div class="page-subtitle">Ваши активные игровые предметы</div>
+            <div class="market-grid" id="inventory-container">
+                <!-- Заполняется JS -->
+            </div>
+        </div>
+
+        <!-- РАЗДЕЛ: ПРОДАТЬ -->
+        <div id="section-sell" class="content-section">
+            <div class="form-card">
+                <h3>Выставить предмет на продажу</h3>
+                <form id="sellForm">
                     <div class="form-group">
-                        <label>Ваш Ник:</label>
-                        <input type="text" id="author" placeholder="Trader_228" required>
+                        <label>Название предмета:</label>
+                        <input type="text" id="itemName" placeholder="АК-47 | Огненный змей" required>
                     </div>
                     <div class="form-group">
-                        <label>Название мема:</label>
-                        <input type="text" id="memeName" placeholder="Плачущий Джедай" required>
+                        <label>Состояние:</label>
+                        <input type="text" id="itemWear" placeholder="Прямо с завода (FN)" required>
                     </div>
                     <div class="form-group">
-                        <label>Ссылка на картинку (URL):</label>
-                        <input type="url" id="memeImg" placeholder="https://..." required>
+                        <label>Ссылка на иконку (URL изображения):</label>
+                        <input type="url" id="itemImg" placeholder="https://..." required>
                     </div>
                     <div class="form-group">
-                        <label>Цена (₽):</label>
-                        <input type="number" id="memePrice" placeholder="500" required>
+                        <label>Цена продажи (₽):</label>
+                        <input type="number" id="itemPrice" placeholder="1500" required>
                     </div>
-                    <button type="submit" class="btn-submit">Опубликовать</button>
+                    <button type="submit" class="btn-submit">Выставить на маркет</button>
                 </form>
             </div>
         </div>
 
-        <!-- ПРОФИЛЬ -->
+        <!-- РАЗДЕЛ: ПРОФИЛЬ -->
         <div id="section-profile" class="content-section">
-            <div class="profile-box">
-                <img src="https://i.ibb.co/s4bnZ6s/IMG-7691.jpg" alt="Avatar">
-                <div class="profile-details">
-                    <h2>TrandMaster</h2>
-                    <p>Telegram ID: 8441052897</p>
-                    <p>Статус: <span style="color: #4ade80;">Активен</span></p>
+            <div class="profile-card">
+                <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100" alt="Avatar">
+                <div class="profile-info">
+                    <h2>ProTrader_99</h2>
+                    <p>ID аккаунта: #844105</p>
+                    <p>Статус: <span style="color: #4ade80; font-weight: bold;">Верифицирован</span></p>
+                </div>
+            </div>
+            <div class="form-card">
+                <h3>Настройки безопасности</h3>
+                <div class="form-group">
+                    <label>Трейд-ссылка Steam / Платформы:</label>
+                    <input type="text" value="https://steamcommunity.com/tradeoffer/?token=example" readonly>
                 </div>
             </div>
         </div>
@@ -333,28 +358,40 @@
             element.classList.add('active');
         }
 
-        let memes = [
-            { name: "Плачущий Джедай", price: 999, img: "https://i.ibb.co/s4bnZ6s/IMG-7691.jpg" },
-            { name: "Крипто-Догэ", price: 340, img: "https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=400" },
-            { name: "Трейдер в шоке", price: 180, img: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=400" },
-            { name: "Холдер", price: 520, img: "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=400" }
+        // Данные маркета (скины)
+        let marketItems = [
+            { name: "AWP | Азимов", wear: "После полевых испытаний", price: 4200, img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FBRw7PvNYjoW09m5lpKKqPv9NLPF2G5VppMl3rGEoNOi2wO2qBBuZjzycYOQIwdrZwzU-lfvw7u8g8S0vpvInHEyuic8pCrd2A24hw/300fx300f" },
+            { name: "AK-47 | Вулкан", wear: "Немного поношенное", price: 8900, img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhjxszJemkV086jloj0m_7zO6-LuGhD18p0juW-_Mu8j1G1tBk9NmymIoOSJg86Y1mCqAC_krju3sbtu8udy3JkuHIn4CvblxW1hE0ZbrY-0vuT9w/300fx300f" },
+            { name: "Нож-бабочка | Кровавая паутина", wear: "Прямо с завода", price: 34500, img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpovbSsLQJf2PLacDBA5ciJnJm0g_7zO6-LuGhD18p0jeHVu9n22wK2qBBuZjzycYOQIwdrZwzU-lfvw7u8g8S0vpvInHEyuic8pCrd2A24hw/300fx300f" },
+            { name: "USP-S | Убийство подтверждено", wear: "После полевых испытаний", price: 2100, img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpoo6m1FBRp3_bGcjhQ09-jq5WYh8j5Nr_Yg2YfcZ0q2u-VoYr22lCyqBY9amv1JoCSIlc3NQ3Ur1C6krq5gpXuvcjInXVhu3R05CremBe2101Ebrdtg-a1Vw/300fx300f" }
         ];
 
-        const container = document.getElementById('market-container');
+        let userInventory = [
+            { name: "Desert Eagle | Пламя", wear: "Прямо с завода", price: 12400, img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgposr-kLAtl7PLZTjlH_9mkgL-OnvL8J77UhG5V18l4qeT--N6i2wWw-EdoMmCjItedc1M8YV_TrVW8lbq7h8S8v8mdwXA27igmsWGImxO3h01Gb_tp0_uV-A/300fx300f" }
+        ];
+
+        let balance = 14250;
+
+        const marketContainer = document.getElementById('market-container');
+        const inventoryContainer = document.getElementById('inventory-container');
+        const balanceEl = document.getElementById('user-balance');
 
         function renderMarket() {
-            container.innerHTML = '';
-            memes.forEach((meme, index) => {
-                container.innerHTML += `
+            marketContainer.innerHTML = '';
+            marketItems.forEach((item, index) => {
+                marketContainer.innerHTML += `
                     <div class="item-card">
                         <div class="item-img-wrap">
-                            <img src="${meme.img}" alt="${meme.name}">
+                            <img src="${item.img}" alt="${item.name}">
                         </div>
                         <div class="item-body">
-                            <div class="item-title">${meme.name}</div>
+                            <div>
+                                <div class="item-title">${item.name}</div>
+                                <div class="item-wear">${item.wear}</div>
+                            </div>
                             <div class="item-footer">
-                                <div class="item-price" id="price-${index}">${meme.price} ₽</div>
-                                <button class="btn-buy" onclick="buyItem('${meme.name}', ${meme.price})">Купить</button>
+                                <div class="item-price">${item.price.toLocaleString()} ₽</div>
+                                <button class="btn-action" onclick="buyItem(${index})">Купить</button>
                             </div>
                         </div>
                     </div>
@@ -362,51 +399,71 @@
             });
         }
 
-        function buyItem(name, price) {
-            alert(`Вы приобрели "${name}" за ${price} ₽!`);
+        function renderInventory() {
+            inventoryContainer.innerHTML = '';
+            if (userInventory.length === 0) {
+                inventoryContainer.innerHTML = '<p style="color: #64748b; grid-column: span 2; text-align: center; padding: 20px;">Инвентарь пуст</p>';
+                return;
+            }
+            userInventory.forEach((item, index) => {
+                inventoryContainer.innerHTML += `
+                    <div class="item-card">
+                        <div class="item-img-wrap">
+                            <img src="${item.img}" alt="${item.name}">
+                        </div>
+                        <div class="item-body">
+                            <div>
+                                <div class="item-title">${item.name}</div>
+                                <div class="item-wear">${item.wear}</div>
+                            </div>
+                            <div class="item-footer">
+                                <div class="item-price">${item.price.toLocaleString()} ₽</div>
+                                <button class="btn-action" style="background:#4ade80;" onclick="withdrawItem(${index})">Забрать</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
         }
 
-        setInterval(() => {
-            memes.forEach((meme, index) => {
-                const change = Math.floor(Math.random() * 21) - 10;
-                meme.price = Math.max(50, meme.price + change);
-                const priceEl = document.getElementById(`price-${index}`);
-                if (priceEl) {
-                    priceEl.innerText = `${meme.price} ₽`;
-                }
-            });
-        }, 4000);
+        function buyItem(index) {
+            const item = marketItems[index];
+            if (balance >= item.price) {
+                balance -= item.price;
+                balanceEl.innerText = balance.toLocaleString() + ' ₽';
+                userInventory.push(item);
+                marketItems.splice(index, 1);
+                renderMarket();
+                renderInventory();
+                alert(`Успешная покупка: ${item.name}! Предмет добавлен в инвентарь.`);
+            } else {
+                alert('Недостаточно средств на балансе!');
+            }
+        }
+
+        function withdrawItem(index) {
+            alert(`Запрос на вывод предмета "${userInventory[index].name}" отправлен в бот авто-выдачи.`);
+            userInventory.splice(index, 1);
+            renderInventory();
+        }
+
+        // Обработка формы продажи
+        document.getElementById('sellForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('itemName').value;
+            const wear = document.getElementById('itemWear').value;
+            const img = document.getElementById('itemImg').value;
+            const price = Number(document.getElementById('itemPrice').value);
+
+            marketItems.unshift({ name, wear, price, img });
+            renderMarket();
+            switchTab('market', document.querySelectorAll('.nav-link')[0]);
+            alert('Предмет успешно выставлен на торговую площадку!');
+            this.reset();
+        });
 
         renderMarket();
-
-        document.getElementById('memeForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-
-            const author = document.getElementById('author').value;
-            const memeName = document.getElementById('memeName').value;
-            const memeImg = document.getElementById('memeImg').value;
-            const memePrice = Number(document.getElementById('memePrice').value);
-
-            memes.unshift({ name: memeName, price: memePrice, img: memeImg });
-            renderMarket();
-            switchTab('market', document.querySelector('.nav-link'));
-
-            const botToken = '9083035411:AAEo4hVsmfPqqGXflBhgJawoyrQ84rF4uV8';
-            const chatId = '8441052897';
-            const message = `🔥 Новый лот на STOPLAY!\n👤 Автор: ${author}\n🖼 Название: ${memeName}\n💰 Цена: ${memePrice} ₽\n🔗 Картинка: ${memeImg}`;
-
-            try {
-                await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ chat_id: chatId, text: message })
-                });
-                alert('Лот успешно выставлен на маркет и отправлен в Telegram!');
-                document.getElementById('memeForm').reset();
-            } catch (err) {
-                alert('Лот добавлен на сайт, но произошла ошибка при отправке в Telegram.');
-            }
-        });
+        renderInventory();
     </script>
 </body>
 </html>
