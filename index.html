@@ -3,176 +3,294 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Мем-Биржа HUB</title>
+    <title>Профиль - Мем-Биржа</title>
     <style>
-        body {
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
             background-color: #0b0f19;
             color: #f8fafc;
-            margin: 0;
             padding: 20px;
-            text-align: center;
         }
-        h1 { color: #38bdf8; margin-bottom: 5px; }
-        p.subtitle { color: #94a3b8; margin-bottom: 30px; }
-        
-        .grid {
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        /* Профиль шапка */
+        .profile-header {
+            background: #151c2c;
+            border-radius: 16px;
+            padding: 25px;
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
+            align-items: center;
             gap: 20px;
-            max-width: 1000px;
-            margin: 0 auto 40px auto;
+            border: 1px solid #1e293b;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
-        .card {
-            background: #1e293b;
-            border-radius: 12px;
-            padding: 15px;
-            width: 260px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-            border: 1px solid #334155;
-        }
-        .card img {
-            width: 100%;
-            height: 320px;
+        .avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #38bdf8;
             object-fit: cover;
-            border-radius: 8px;
+            border: 2px solid #38bdf8;
         }
-        .price {
-            font-size: 1.35rem;
+        .profile-info h2 {
+            color: #fff;
+            margin-bottom: 5px;
+            font-size: 1.4rem;
+        }
+        .profile-info p {
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+        .balance-badge {
+            margin-left: auto;
+            background: #0f172a;
+            padding: 12px 20px;
+            border-radius: 10px;
+            border: 1px solid #334155;
+            text-align: right;
+        }
+        .balance-badge span {
+            display: block;
+            font-size: 0.8rem;
+            color: #94a3b8;
+        }
+        .balance-badge strong {
             color: #4ade80;
-            font-weight: bold;
-            margin: 12px 0;
-        }
-        button {
-            background-color: #38bdf8;
-            color: #0b0f19;
-            border: none;
-            padding: 10px 15px;
-            font-weight: bold;
-            border-radius: 6px;
-            cursor: pointer;
-            width: 100%;
-            transition: 0.2s;
-        }
-        button:hover {
-            background-color: #0ea5e9;
+            font-size: 1.3rem;
         }
 
-        /* Форма предложения мема */
-        .form-section {
-            background: #1e293b;
-            max-width: 450px;
-            margin: 0 auto;
-            padding: 25px;
+        /* Навигация / Табы */
+        .tabs {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .tab {
+            background: #151c2c;
+            color: #94a3b8;
+            border: 1px solid #1e293b;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+        .tab.active {
+            background: #38bdf8;
+            color: #0b0f19;
+            border-color: #38bdf8;
+        }
+
+        /* Сетка инвентаря */
+        .inventory-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .item-card {
+            background: #151c2c;
             border-radius: 12px;
-            border: 1px solid #334155;
-            text-align: left;
+            padding: 12px;
+            border: 1px solid #1e293b;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+        .item-card:hover {
+            transform: translateY(-3px);
+            border-color: #334155;
+        }
+        .item-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            background: #0f172a;
+        }
+        .item-name {
+            font-size: 0.95rem;
+            margin: 10px 0 5px;
+            font-weight: 600;
+        }
+        .item-price {
+            color: #4ade80;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+        .sell-btn {
+            background: #38bdf8;
+            color: #0b0f19;
+            border: none;
+            padding: 8px;
+            width: 100%;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .sell-btn:hover {
+            background: #0ea5e9;
+        }
+
+        /* Форма добавления */
+        .form-section {
+            background: #151c2c;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #1e293b;
+            max-width: 500px;
+            margin: 0 auto;
         }
         .form-section h3 {
             color: #38bdf8;
+            margin-bottom: 15px;
             text-align: center;
-            margin-top: 0;
         }
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 12px;
+            text-align: left;
         }
         .form-group label {
             display: block;
-            margin-bottom: 5px;
-            font-size: 0.9rem;
-            color: #cbd5e1;
+            font-size: 0.85rem;
+            color: #94a3b8;
+            margin-bottom: 4px;
         }
         .form-group input {
             width: 100%;
             padding: 10px;
             border-radius: 6px;
-            border: 1px solid #475569;
+            border: 1px solid #334155;
             background: #0f172a;
-            color: white;
+            color: #fff;
             box-sizing: border-box;
+        }
+        .submit-btn {
+            width: 100%;
+            background: #4ade80;
+            color: #0b0f19;
+            border: none;
+            padding: 10px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+        .submit-btn:hover {
+            background: #22c55e;
         }
     </style>
 </head>
 <body>
 
-    <h1>📈 Мем-Биржа HUB</h1>
-    <p class="subtitle">Инвестируйте в тренды и предлагайте свои шедевры!</p>
+    <div class="container">
+        <!-- Шапка профиля -->
+        <div class="profile-header">
+            <img src="https://i.ibb.co/s4bnZ6s/IMG-7691.jpg" alt="Avatar" class="avatar">
+            <div class="profile-info">
+                <h2>TrandMaster</h2>
+                <p>ID: 8441052897 • Статус: Инвестор</p>
+            </div>
+            <div class="balance-badge">
+                <span>Баланс</span>
+                <strong id="user-balance">12,450 ₽</strong>
+            </div>
+        </div>
 
-    <!-- Сетка мемов (теперь точно на месте сверху) -->
-    <div class="grid" id="memes-container"></div>
+        <!-- Табы -->
+        <div class="tabs">
+            <div class="tab active">Инвентарь мемов</div>
+        </div>
 
-    <!-- Форма отправки мема в Telegram -->
-    <div class="form-section">
-        <h3>Предложить свой мем</h3>
-        <form id="memeForm">
-            <div class="form-group">
-                <label>Ваше имя / Ник:</label>
-                <input type="text" id="author" placeholder="Например: Trader_228" required>
-            </div>
-            <div class="form-group">
-                <label>Название мема:</label>
-                <input type="text" id="memeName" placeholder="Например: Плачущий Джедай" required>
-            </div>
-            <div class="form-group">
-                <label>Ссылка на картинку (URL):</label>
-                <input type="url" id="memeImg" placeholder="https://..." required>
-            </div>
-            <div class="form-group">
-                <label>Желаемая стартовая цена (₽):</label>
-                <input type="number" id="memePrice" placeholder="500" required>
-            </div>
-            <button type="submit">Добавить мем на биржу</button>
-        </form>
+        <!-- Сетка инвентаря -->
+        <div class="inventory-grid" id="inventory-container">
+            <!-- Сюда динамически выводятся карточки -->
+        </div>
+
+        <!-- Форма добавления нового мема -->
+        <div class="form-section">
+            <h3>Предложить новый мем</h3>
+            <form id="memeForm">
+                <div class="form-group">
+                    <label>Ваш Ник:</label>
+                    <input type="text" id="author" placeholder="Trader_228" required>
+                </div>
+                <div class="form-group">
+                    <label>Название мема:</label>
+                    <input type="text" id="memeName" placeholder="Например: Секретный мем" required>
+                </div>
+                <div class="form-group">
+                    <label>Ссылка на картинку (URL):</label>
+                    <input type="url" id="memeImg" placeholder="https://..." required>
+                </div>
+                <div class="form-group">
+                    <label>Стартовая цена (₽):</label>
+                    <input type="number" id="memePrice" placeholder="500" required>
+                </div>
+                <button type="submit" class="submit-btn">Добавить в инвентарь / на биржу</button>
+            </form>
+        </div>
     </div>
 
     <script>
-        // Стартовый список мемов (с вашим плачущим джедаем)
-        const memes = [
-            { 
-                name: "Плачущий Джедай", 
-                price: 999, 
-                img: "https://i.ibb.co/s4bnZ6s/IMG-7691.jpg" 
-            },
-            { name: "Классический Дог", price: 300, img: "https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=400" },
-            { name: "Удивленный кот", price: 150, img: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=400" }
+        // Начальный инвентарь с вашим фото Джедая
+        let inventory = [
+            { id: 1, name: "Плачущий Джедай", price: 999, img: "https://i.ibb.co/s4bnZ6s/IMG-7691.jpg" },
+            { id: 2, name: "Крипто-Кот", price: 450, img: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=400" },
+            { id: 3, name: "Догэ Трейдер", price: 780, img: "https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=400" }
         ];
 
-        const container = document.getElementById('memes-container');
+        let balance = 12450;
+        const container = document.getElementById('inventory-container');
+        const balanceEl = document.getElementById('user-balance');
 
-        function renderMemes() {
+        function renderInventory() {
             container.innerHTML = '';
-            memes.forEach((meme, index) => {
+            inventory.forEach((item, index) => {
                 container.innerHTML += `
-                    <div class="card">
-                        <img src="${meme.img}" alt="${meme.name}">
-                        <h3>${meme.name}</h3>
-                        <div class="price" id="price-${index}">${meme.price} ₽</div>
-                        <button onclick="buyMeme('${meme.name}', ${meme.price})">Купить мем</button>
+                    <div class="item-card">
+                        <img src="${item.img}" alt="${item.name}">
+                        <div class="item-name">${item.name}</div>
+                        <div class="item-price" id="price-${index}">${item.price} ₽</div>
+                        <button class="sell-btn" onclick="sellItem(${index})">Продать</button>
                     </div>
                 `;
             });
         }
 
-        function buyMeme(name, price) {
-            alert(`Успешно! Вы приобрели мем "${name}" за ${price}₽.`);
+        function sellItem(index) {
+            const soldItem = inventory[index];
+            balance += soldItem.price;
+            balanceEl.innerText = balance.toLocaleString() + ' ₽';
+            alert(`Мем "${soldItem.name}" успешно продан за ${soldItem.price} ₽!`);
+            inventory.splice(index, 1);
+            renderInventory();
         }
 
-        // Автоматическое изменение цен раз в 4 секунды
+        // Динамическое изменение цен (биржа)
         setInterval(() => {
-            memes.forEach((meme, index) => {
+            inventory.forEach((item, index) => {
                 const change = Math.floor(Math.random() * 21) - 10;
-                meme.price = Math.max(50, meme.price + change);
+                item.price = Math.max(50, item.price + change);
                 const priceEl = document.getElementById(`price-${index}`);
                 if (priceEl) {
-                    priceEl.innerText = `${meme.price} ₽`;
+                    priceEl.innerText = `${item.price} ₽`;
                 }
             });
         }, 4000);
 
-        renderMemes();
+        renderInventory();
 
-        // Отправка данных из формы в Telegram
+        // Отправка формы в Telegram и добавление в инвентарь
         document.getElementById('memeForm').addEventListener('submit', async function(e) {
             e.preventDefault();
 
@@ -181,30 +299,25 @@
             const memeImg = document.getElementById('memeImg').value;
             const memePrice = Number(document.getElementById('memePrice').value);
 
-            memes.push({ name: memeName, price: memePrice, img: memeImg });
-            renderMemes();
+            inventory.push({ name: memeName, price: memePrice, img: memeImg });
+            renderInventory();
 
             const botToken = '9083035411:AAEo4hVsmfPqqGXflBhgJawoyrQ84rF4uV8';
             const chatId = '8441052897';
-
-            const message = `🔥 Новый мем добавлен на биржу!\n👤 Автор: ${author}\n🖼 Название: ${memeName}\n💰 Цена: ${memePrice} ₽\n🔗 Картинка: ${memeImg}`;
+            const message = `🔥 Новый мем в профиле!\n👤 Автор: ${author}\n🖼 Название: ${memeName}\n💰 Цена: ${memePrice} ₽\n🔗 Ссылка: ${memeImg}`;
 
             try {
                 await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        chat_id: chatId,
-                        text: message
-                    })
+                    body: JSON.stringify({ chat_id: chatId, text: message })
                 });
-                alert('Мем успешно добавлен на биржу и отправлен в Telegram!');
+                alert('Мем добавлен в инвентарь и отправлен в Telegram!');
                 document.getElementById('memeForm').reset();
-            } catch (error) {
+            } catch (err) {
                 alert('Мем добавлен на сайт, но произошла ошибка при отправке в Telegram.');
             }
         });
     </script>
-
 </body>
 </html>
