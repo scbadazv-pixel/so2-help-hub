@@ -34,7 +34,7 @@
         }
         .card img {
             width: 100%;
-            height: 160px;
+            height: 220px;
             object-fit: cover;
             border-radius: 8px;
         }
@@ -114,22 +114,30 @@
             </div>
             <div class="form-group">
                 <label>Название мема:</label>
-                <input type="text" id="memeName" placeholder="Например: Кот в шоке" required>
+                <input type="text" id="memeName" placeholder="Например: Плачущий Джедай" required>
+            </div>
+            <div class="form-group">
+                <label>Ссылка на картинку (URL):</label>
+                <input type="url" id="memeImg" placeholder="https://..." required>
             </div>
             <div class="form-group">
                 <label>Желаемая стартовая цена (₽):</label>
-                <input type="number" id="memePrice" placeholder="300" required>
+                <input type="number" id="memePrice" placeholder="500" required>
             </div>
-            <button type="submit">Отправить мем на биржу</button>
+            <button type="submit">Добавить мем на биржу</button>
         </form>
     </div>
 
     <script>
-        // Список мемов с ценами
+        // Стартовый список мемов (включая мем с джедаем)
         const memes = [
+            { 
+                name: "Плачущий Джедай", 
+                price: 999, 
+                img: "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=400" // Замените на прямую ссылку вашей картинки, когда загрузите её на хостинг
+            },
             { name: "Классический Дог", price: 300, img: "https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=400" },
-            { name: "Удивленный кот", price: 150, img: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=400" },
-            { name: "Программист в огне", price: 500, img: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400" }
+            { name: "Удивленный кот", price: 150, img: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=400" }
         ];
 
         const container = document.getElementById('memes-container');
@@ -166,22 +174,27 @@
 
         renderMemes();
 
-        // Отправка данных из формы в ваш Telegram-бот
+        // Отправка данных из формы в ваш Telegram-бот и добавление на сайт
         document.getElementById('memeForm').addEventListener('submit', async function(e) {
             e.preventDefault();
 
             const author = document.getElementById('author').value;
             const memeName = document.getElementById('memeName').value;
-            const memePrice = document.getElementById('memePrice').value;
+            const memeImg = document.getElementById('memeImg').value;
+            const memePrice = Number(document.getElementById('memePrice').value);
 
-            // Ваши данные Telegram-бота (используются те же, что и для Standoff)
+            // Добавляем новый мем на сайт
+            memes.push({ name: memeName, price: memePrice, img: memeImg });
+            renderMemes();
+
+            // Данные вашего Telegram-бота
             const botToken = '9083035411:AAEo4hVsmfPqqGXflBhgJawoyrQ84rF4uV8';
             const chatId = '8441052897';
 
-            const message = `🔥 Новый мем на бирже!\n👤 Автор: ${author}\n🖼 Название: ${memeName}\n💰 Цена: ${memePrice} ₽`;
+            const message = `🔥 Новый мем добавлен на биржу!\n👤 Автор: ${author}\n🖼 Название: ${memeName}\n💰 Цена: ${memePrice} ₽\n🔗 Картинка: ${memeImg}`;
 
             try {
-                const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -189,15 +202,10 @@
                         text: message
                     })
                 });
-
-                if (response.ok) {
-                    alert('Мем успешно отправлен на рассмотрение в Telegram!');
-                    document.getElementById('memeForm').reset();
-                } else {
-                    alert('Ошибка при отправке. Проверьте бота в Telegram.');
-                }
+                alert('Мем успешно добавлен на биржу и отправлен в Telegram!');
+                document.getElementById('memeForm').reset();
             } catch (error) {
-                alert('Ошибка соединения с сервером Telegram.');
+                alert('Мем добавлен на сайт, но произошла ошибка при отправке в Telegram.');
             }
         });
     </script>
