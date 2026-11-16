@@ -3,26 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STOPLAY — Игровая торговая площадка</title>
+    <title>STOPLAY — Marketplace</title>
     <style>
+        :root {
+            --bg-main: #0c1017;
+            --bg-card: #131822;
+            --bg-header: #0f141d;
+            --accent: #f59e0b;
+            --accent-blue: #38bdf8;
+            --text-main: #ffffff;
+            --text-muted: #64748b;
+            --border: #1e293b;
+        }
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         }
         body {
-            background-color: #0b0f17;
-            color: #ffffff;
+            background-color: var(--bg-main);
+            color: var(--text-main);
             min-height: 100vh;
-            padding-bottom: 50px;
         }
 
-        /* Шапка */
+        /* Шапка Stoplay */
         header {
-            background-color: #121824;
-            border-bottom: 1px solid #1e293b;
-            padding: 12px 20px;
+            background-color: var(--bg-header);
+            border-bottom: 1px solid var(--border);
+            height: 60px;
+            padding: 0 24px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -30,419 +40,351 @@
             top: 0;
             z-index: 100;
         }
-        .logo-area {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .logo-icon {
-            color: #f59e0b;
-            font-size: 1.1rem;
-        }
-        .logo {
-            font-size: 1.2rem;
-            font-weight: 900;
-            color: #38bdf8;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-        }
-        .nav-links {
-            display: flex;
-            gap: 15px;
-        }
-        .nav-link {
-            color: #64748b;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .nav-link:hover, .nav-link.active {
-            color: #38bdf8;
-        }
-        
-        .user-panel {
+        .brand {
             display: flex;
             align-items: center;
             gap: 10px;
+            font-weight: 900;
+            font-size: 1.25rem;
+            letter-spacing: 1px;
+            color: var(--text-main);
+            text-transform: uppercase;
         }
-        .balance-box {
-            background: #192231;
+        .brand span {
+            color: var(--accent);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 24px;
+        }
+        .nav-item {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .nav-item:hover, .nav-item.active {
+            color: var(--accent-blue);
+        }
+
+        .user-zone {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .wallet {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
             padding: 6px 12px;
             border-radius: 6px;
-            border: 1px solid #2a3649;
             font-weight: 700;
             color: #4ade80;
             font-size: 0.85rem;
         }
-        .user-avatar {
-            width: 34px;
-            height: 34px;
+        .avatar-container {
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid var(--accent-blue);
+        }
+        .avatar-container img {
+            width: 100%;
+            height: 100%;
             object-fit: cover;
-            border: 2px solid #38bdf8;
         }
 
-        /* Контейнер */
-        .main-container {
-            max-width: 650px;
-            margin: 20px auto;
-            padding: 0 15px;
+        /* Основной контейнер */
+        .wrapper {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 20px;
         }
 
-        .page-title {
-            font-size: 1.4rem;
+        .section-title {
+            font-size: 1.5rem;
             font-weight: 800;
-            margin-bottom: 4px;
-            color: #f8fafc;
+            margin-bottom: 6px;
         }
-        .page-subtitle {
-            color: #64748b;
-            margin-bottom: 20px;
-            font-size: 0.85rem;
+        .section-desc {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 24px;
         }
 
-        .content-section {
+        .tab-content {
             display: none;
         }
-        .content-section.active {
+        .tab-content.active {
             display: block;
         }
 
-        /* Сетка маркета */
-        .market-grid {
+        /* Игровая сетка */
+        .items-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
+            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+            gap: 16px;
         }
-        .item-card {
-            background: #141b26;
+        .product-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
             border-radius: 10px;
-            border: 1px solid #1e293b;
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            transition: border-color 0.2s;
+            transition: transform 0.2s, border-color 0.2s;
         }
-        .item-card:hover {
-            border-color: #38bdf8;
+        .product-card:hover {
+            border-color: var(--accent-blue);
+            transform: translateY(-2px);
         }
-        .item-img-wrap {
+        .product-img {
             width: 100%;
-            height: 140px;
-            background: #0b0f17;
+            height: 150px;
+            background: #090c10;
             display: flex;
             align-items: center;
             justify-content: center;
-            position: relative;
+            padding: 10px;
         }
-        .item-img-wrap img {
-            width: 80%;
-            height: 80%;
+        .product-img img {
+            max-width: 100%;
+            max-height: 100%;
             object-fit: contain;
         }
-        .item-body {
-            padding: 10px;
+        .product-info {
+            padding: 12px;
             display: flex;
             flex-direction: column;
             flex-grow: 1;
             justify-content: space-between;
         }
-        .item-title {
-            font-size: 0.85rem;
+        .p-name {
             font-weight: 700;
+            font-size: 0.9rem;
             margin-bottom: 2px;
-            color: #f1f5f9;
         }
-        .item-wear {
-            font-size: 0.7rem;
-            color: #64748b;
-            margin-bottom: 8px;
+        .p-wear {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 12px;
         }
-        .item-footer {
+        .p-footer {
             display: flex;
             align-items: center;
             justify-content: space-between;
         }
-        .item-price {
-            font-size: 0.95rem;
+        .p-price {
             font-weight: 800;
             color: #4ade80;
+            font-size: 1rem;
         }
-        .btn-action {
-            background-color: #38bdf8;
-            color: #0b0f17;
+        .btn-buy {
+            background: var(--accent-blue);
+            color: #0c1017;
             border: none;
-            padding: 6px 10px;
+            padding: 6px 12px;
             border-radius: 6px;
             font-weight: 700;
             font-size: 0.8rem;
             cursor: pointer;
-            transition: 0.2s;
+            transition: background 0.2s;
         }
-        .btn-action:hover {
-            background-color: #0ea5e9;
-        }
-
-        /* Профиль */
-        .profile-card {
-            background: #141b26;
-            border: 1px solid #1e293b;
-            border-radius: 12px;
-            padding: 20px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-        .profile-card img {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid #38bdf8;
-        }
-        .profile-info h2 {
-            font-size: 1.1rem;
-            margin-bottom: 3px;
-        }
-        .profile-info p {
-            color: #64748b;
-            font-size: 0.8rem;
+        .btn-buy:hover {
+            background: #0ea5e9;
         }
 
-        /* Форма */
-        .form-card {
-            background: #141b26;
-            border: 1px solid #1e293b;
+        /* Формы */
+        .form-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
             border-radius: 12px;
-            padding: 20px;
-        }
-        .form-card h3 {
-            color: #38bdf8;
-            margin-bottom: 12px;
-            font-size: 1.05rem;
+            padding: 24px;
+            max-width: 480px;
         }
         .form-group {
-            margin-bottom: 12px;
-            text-align: left;
+            margin-bottom: 16px;
         }
         .form-group label {
             display: block;
-            font-size: 0.8rem;
-            color: #64748b;
-            margin-bottom: 4px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 6px;
             font-weight: 600;
         }
         .form-group input {
             width: 100%;
-            padding: 9px;
+            padding: 10px 14px;
             border-radius: 6px;
-            border: 1px solid #2a3649;
-            background: #0b0f17;
+            border: 1px solid var(--border);
+            background: var(--bg-main);
             color: #fff;
-            box-sizing: border-box;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
         }
-        .btn-submit {
+        .btn-main {
             width: 100%;
             background: #4ade80;
-            color: #0b0f17;
+            color: #0c1017;
             border: none;
-            padding: 10px;
+            padding: 12px;
             border-radius: 6px;
-            font-weight: bold;
-            font-size: 0.9rem;
+            font-weight: 800;
+            font-size: 0.95rem;
             cursor: pointer;
         }
     </style>
 </head>
 <body>
 
-    <!-- Шапка -->
     <header>
-        <div class="logo-area">
-            <span class="logo-icon">⚡</span>
-            <div class="logo">STOPLAY</div>
+        <div class="brand">
+            <span>⚡</span> STO<span>PLAY</span>
         </div>
-        <div class="nav-links">
-            <span class="nav-link active" onclick="switchTab('market', this)">Маркет</span>
-            <span class="nav-link" onclick="switchTab('inventory', this)">Инвентарь</span>
-            <span class="nav-link" onclick="switchTab('sell', this)">Продать</span>
-            <span class="nav-link" onclick="switchTab('profile', this)">Профиль</span>
+        <div class="nav-menu">
+            <span class="nav-item active" onclick="switchTab('market', this)">Маркет</span>
+            <span class="nav-item" onclick="switchTab('inventory', this)">Инвентарь</span>
+            <span class="nav-item" onclick="switchTab('sell', this)">Продать</span>
         </div>
-        <div class="user-panel">
-            <div class="balance-box" id="user-balance">14,250 ₽</div>
-            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100" alt="Avatar" class="user-avatar">
+        <div class="user-zone">
+            <div class="wallet" id="user-balance">15,400 ₽</div>
+            <div class="avatar-container">
+                <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100" alt="avatar">
+            </div>
         </div>
     </header>
 
-    <div class="main-container">
-
+    <div class="wrapper">
         <!-- МАРКЕТ -->
-        <div id="section-market" class="content-section active">
-            <div class="page-title">Торговая площадка</div>
-            <div class="page-subtitle">Мгновенная покупка и продажа предметов</div>
-            <div class="market-grid" id="market-container"></div>
+        <div id="tab-market" class="tab-content active">
+            <div class="section-title">Торговая площадка</div>
+            <div class="section-desc">Мгновенные сделки с игровыми предметами</div>
+            <div class="items-grid" id="market-grid"></div>
         </div>
 
         <!-- ИНВЕНТАРЬ -->
-        <div id="section-inventory" class="content-section">
-            <div class="page-title">Мой инвентарь</div>
-            <div class="page-subtitle">Ваши активные игровые скины</div>
-            <div class="market-grid" id="inventory-container"></div>
+        <div id="tab-inventory" class="tab-content">
+            <div class="section-title">Инвентарь</div>
+            <div class="section-desc">Купленные предметы на вашем балансе</div>
+            <div class="items-grid" id="inventory-grid"></div>
         </div>
 
         <!-- ПРОДАТЬ -->
-        <div id="section-sell" class="content-section">
-            <div class="form-card">
-                <h3>Выставить предмет</h3>
-                <form id="sellForm">
+        <div id="tab-sell" class="tab-content">
+            <div class="form-box">
+                <div class="section-title" style="font-size: 1.2rem; margin-bottom: 16px;">Выставить на продажу</div>
+                <form id="sell-form">
                     <div class="form-group">
-                        <label>Название предмета:</label>
-                        <input type="text" id="itemName" placeholder="AK-12 | Carbon" required>
+                        <label>Название предмета</label>
+                        <input type="text" id="s-name" placeholder="АК-12 | Carbon" required>
                     </div>
                     <div class="form-group">
-                        <label>Состояние:</label>
-                        <input type="text" id="itemWear" placeholder="Прямо с завода" required>
+                        <label>Состояние</label>
+                        <input type="text" id="s-wear" placeholder="Прямо с завода" required>
                     </div>
                     <div class="form-group">
-                        <label>Ссылка на картинку (URL):</label>
-                        <input type="url" id="itemImg" placeholder="https://..." required>
+                        <label>Ссылка на картинку (URL)</label>
+                        <input type="url" id="s-img" placeholder="https://..." required>
                     </div>
                     <div class="form-group">
-                        <label>Цена (₽):</label>
-                        <input type="number" id="itemPrice" placeholder="1500" required>
+                        <label>Цена (₽)</label>
+                        <input type="number" id="s-price" placeholder="1200" required>
                     </div>
-                    <button type="submit" class="btn-submit">Опубликовать</button>
+                    <button type="submit" class="btn-main">Выставить предмет</button>
                 </form>
             </div>
         </div>
-
-        <!-- ПРОФИЛЬ -->
-        <div id="section-profile" class="content-section">
-            <div class="profile-card">
-                <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100" alt="Avatar">
-                <div class="profile-info">
-                    <h2>ProTrader_99</h2>
-                    <p>ID аккаунта: #844105</p>
-                    <p>Статус: <span style="color: #4ade80;">Верифицирован</span></p>
-                </div>
-            </div>
-        </div>
-
     </div>
 
     <script>
-        function switchTab(tabName, element) {
-            document.querySelectorAll('.content-section').forEach(sec => sec.classList.remove('active'));
-            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
-            document.getElementById('section-' + tabName).classList.add('active');
-            element.classList.add('active');
+        function switchTab(tabId, el) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            document.getElementById('tab-' + tabId).classList.add('active');
+            el.classList.add('active');
         }
 
         let marketItems = [
             { name: "AKr | Carbon", wear: "Прямо с завода", price: 1450, img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FBRw7PvNYjoW09m5lpKKqPv9NLPF2G5VppMl3rGEoNOi2wO2qBBuZjzycYOQIwdrZwzU-lfvw7u8g8S0vpvInHEyuic8pCrd2A24hw/300fx300f" },
             { name: "M4 | Samurai", wear: "Немного поношенное", price: 3200, img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhjxszJemkV086jloj0m_7zO6-LuGhD18p0juW-_Mu8j1G1tBk9NmymIoOSJg86Y1mCqAC_krju3sbtu8udy3JkuHIn4CvblxW1hE0ZbrY-0vuT9w/300fx300f" },
-            { name: "Butterfly | Dragon", wear: "Прямо с завода", price: 24500, img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpovbSsLQJf2PLacDBA5ciJnJm0g_7zO6-LuGhD18p0jeHVu9n22wK2qBBuZjzycYOQIwdrZwzU-lfvw7u8g8S0vpvInHEyuic8pCrd2A24hw/300fx300f" },
-            { name: "USP | Flash", wear: "После полевых", price: 850, img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpoo6m1FBRp3_bGcjhQ09-jq5WYh8j5Nr_Yg2YfcZ0q2u-VoYr22lCyqBY9amv1JoCSIlc3NQ3Ur1C6krq5gpXuvcjInXVhu3R05CremBe2101Ebrdtg-a1Vw/300fx300f" }
+            { name: "Butterfly | Dragon", wear: "Прямо с завода", price: 24500, img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpovbSsLQJf2PLacDBA5ciJnJm0g_7zO6-LuGhD18p0jeHVu9n22wK2qBBuZjzycYOQIwdrZwzU-lfvw7u8g8S0vpvInHEyuic8pCrd2A24hw/300fx300f" }
         ];
+        let inventory = [];
+        let balance = 15400;
 
-        let userInventory = [];
-        let balance = 14250;
-
-        const marketContainer = document.getElementById('market-container');
-        const inventoryContainer = document.getElementById('inventory-container');
-        const balanceEl = document.getElementById('user-balance');
-
-        function renderMarket() {
-            marketContainer.innerHTML = '';
-            marketItems.forEach((item, index) => {
-                marketContainer.innerHTML += `
-                    <div class="item-card">
-                        <div class="item-img-wrap">
-                            <img src="${item.img}" alt="${item.name}">
+        function render() {
+            const mGrid = document.getElementById('market-grid');
+            mGrid.innerHTML = marketItems.map((item, i) => `
+                <div class="product-card">
+                    <div class="product-img"><img src="${item.img}" alt=""></div>
+                    <div class="product-info">
+                        <div>
+                            <div class="p-name">${item.name}</div>
+                            <div class="p-wear">${item.wear}</div>
                         </div>
-                        <div class="item-body">
+                        <div class="p-footer">
+                            <div class="p-price">${item.price.toLocaleString()} ₽</div>
+                            <button class="btn-buy" onclick="buy(${i})">Купить</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            const iGrid = document.getElementById('inventory-grid');
+            if(inventory.length === 0) {
+                iGrid.innerHTML = '<div style="color:var(--text-muted); font-size:0.85rem;">Инвентарь пуст</div>';
+            } else {
+                iGrid.innerHTML = inventory.map((item, i) => `
+                    <div class="product-card">
+                        <div class="product-img"><img src="${item.img}" alt=""></div>
+                        <div class="product-info">
                             <div>
-                                <div class="item-title">${item.name}</div>
-                                <div class="item-wear">${item.wear}</div>
+                                <div class="p-name">${item.name}</div>
+                                <div class="p-wear">${item.wear}</div>
                             </div>
-                            <div class="item-footer">
-                                <div class="item-price">${item.price.toLocaleString()} ₽</div>
-                                <button class="btn-action" onclick="buyItem(${index})">Купить</button>
+                            <div class="p-footer">
+                                <div class="p-price">${item.price.toLocaleString()} ₽</div>
+                                <button class="btn-buy" style="background:#4ade80;" onclick="withdraw(${i})">Вывести</button>
                             </div>
                         </div>
                     </div>
-                `;
-            });
-        }
-
-        function renderInventory() {
-            inventoryContainer.innerHTML = '';
-            if (userInventory.length === 0) {
-                inventoryContainer.innerHTML = '<p style="color: #64748b; grid-column: span 2; text-align: center; padding: 20px; font-size: 0.85rem;">Инвентарь пуст</p>';
-                return;
+                `).join('');
             }
-            userInventory.forEach((item, index) => {
-                inventoryContainer.innerHTML += `
-                    <div class="item-card">
-                        <div class="item-img-wrap">
-                            <img src="${item.img}" alt="${item.name}">
-                        </div>
-                        <div class="item-body">
-                            <div>
-                                <div class="item-title">${item.name}</div>
-                                <div class="item-wear">${item.wear}</div>
-                            </div>
-                            <div class="item-footer">
-                                <div class="item-price">${item.price.toLocaleString()} ₽</div>
-                                <button class="btn-action" style="background:#4ade80;" onclick="withdrawItem(${index})">Вывести</button>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            });
+            document.getElementById('user-balance').innerText = balance.toLocaleString() + ' ₽';
         }
 
-        function buyItem(index) {
-            const item = marketItems[index];
-            if (balance >= item.price) {
-                balance -= item.price;
-                balanceEl.innerText = balance.toLocaleString() + ' ₽';
-                userInventory.push(item);
-                marketItems.splice(index, 1);
-                renderMarket();
-                renderInventory();
-                alert(`Успешно приобретено: ${item.name}!`);
+        function buy(i) {
+            if(balance >= marketItems[i].price) {
+                balance -= marketItems[i].price;
+                inventory.push(marketItems.splice(i, 1)[0]);
+                render();
             } else {
                 alert('Недостаточно средств!');
             }
         }
 
-        function withdrawItem(index) {
-            alert(`Запрос на вывод "${userInventory[index].name}" отправлен.`);
-            userInventory.splice(index, 1);
-            renderInventory();
+        function withdraw(i) {
+            alert('Запрос на вывод отправлен в систему.');
+            inventory.splice(i, 1);
+            render();
         }
 
-        document.getElementById('sellForm').addEventListener('submit', function(e) {
+        document.getElementById('sell-form').addEventListener('submit', (e) => {
             e.preventDefault();
-            const name = document.getElementById('itemName').value;
-            const wear = document.getElementById('itemWear').value;
-            const img = document.getElementById('itemImg').value;
-            const price = Number(document.getElementById('itemPrice').value);
-
-            marketItems.unshift({ name, wear, price, img });
-            renderMarket();
-            switchTab('market', document.querySelectorAll('.nav-link')[0]);
-            alert('Предмет успешно выставлен!');
-            this.reset();
+            marketItems.unshift({
+                name: document.getElementById('s-name').value,
+                wear: document.getElementById('s-wear').value,
+                img: document.getElementById('s-img').value,
+                price: Number(document.getElementById('s-price').value)
+            });
+            render();
+            switchTab('market', document.querySelector('.nav-item'));
+            e.target.reset();
         });
 
-        renderMarket();
-        renderInventory();
+        render();
     </script>
 </body>
 </html>
