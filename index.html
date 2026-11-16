@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STOPLAY - Мем-Маркет</title>
+    <title>STOPLAY - Маркет Мемов</title>
     <style>
         * {
             box-sizing: border-box;
@@ -12,16 +12,17 @@
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
         body {
-            background-color: #0f131a;
+            background-color: #0b0f17;
             color: #ffffff;
             min-height: 100vh;
+            padding-bottom: 40px;
         }
 
-        /* Шапка сайта (Header как на stoplay) */
+        /* Шапка в стиле Stoplay */
         header {
-            background-color: #151a23;
-            border-bottom: 1px solid #232b38;
-            padding: 15px 30px;
+            background-color: #121824;
+            border-bottom: 1px solid #1e293b;
+            padding: 12px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -32,26 +33,31 @@
         .logo-area {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 8px;
+        }
+        .logo-icon {
+            color: #f59e0b;
+            font-size: 1.2rem;
         }
         .logo {
-            font-size: 1.4rem;
+            font-size: 1.25rem;
             font-weight: 900;
             color: #38bdf8;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
             text-transform: uppercase;
         }
         .nav-links {
             display: flex;
-            gap: 20px;
+            gap: 15px;
         }
         .nav-link {
-            color: #94a3b8;
+            color: #64748b;
             text-decoration: none;
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             cursor: pointer;
             transition: 0.2s;
+            text-align: center;
         }
         .nav-link:hover, .nav-link.active {
             color: #38bdf8;
@@ -60,45 +66,44 @@
         .user-panel {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 10px;
         }
         .balance-box {
-            background: #1e2532;
-            padding: 8px 16px;
-            border-radius: 8px;
-            border: 1px solid #2d3748;
-            font-weight: bold;
+            background: #192231;
+            padding: 6px 12px;
+            border-radius: 6px;
+            border: 1px solid #2a3649;
+            font-weight: 700;
             color: #4ade80;
-            font-size: 0.95rem;
+            font-size: 0.85rem;
         }
         .user-avatar {
-            width: 40px;
-            height: 40px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             object-fit: cover;
             border: 2px solid #38bdf8;
         }
 
-        /* Основной контент */
+        /* Контент */
         .main-container {
-            max-width: 1200px;
-            margin: 30px auto;
-            padding: 0 20px;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 0 15px;
         }
 
         .page-title {
-            font-size: 1.8rem;
+            font-size: 1.4rem;
             font-weight: 800;
-            margin-bottom: 8px;
+            margin-bottom: 4px;
             color: #f8fafc;
         }
         .page-subtitle {
-            color: #94a3b8;
-            margin-bottom: 25px;
-            font-size: 0.95rem;
+            color: #64748b;
+            margin-bottom: 20px;
+            font-size: 0.85rem;
         }
 
-        /* Секции страниц */
         .content-section {
             display: none;
         }
@@ -106,30 +111,29 @@
             display: block;
         }
 
-        /* Сетка товаров/мемов */
+        /* СЕТКА ТОВАРОВ ПО 2 В РЯД (КАК НА STOPLAY) */
         .market-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 20px;
-            margin-bottom: 40px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 30px;
         }
         .item-card {
-            background: #151a23;
-            border-radius: 12px;
-            border: 1px solid #232b38;
+            background: #141b26;
+            border-radius: 10px;
+            border: 1px solid #1e293b;
             overflow: hidden;
-            transition: transform 0.2s, border-color 0.2s;
             display: flex;
             flex-direction: column;
+            transition: border-color 0.2s;
         }
         .item-card:hover {
-            transform: translateY(-4px);
             border-color: #38bdf8;
         }
         .item-img-wrap {
             width: 100%;
-            height: 220px;
-            background: #0f131a;
+            height: 140px;
+            background: #0b0f17;
             position: relative;
         }
         .item-img-wrap img {
@@ -138,36 +142,39 @@
             object-fit: cover;
         }
         .item-body {
-            padding: 15px;
+            padding: 10px;
             display: flex;
             flex-direction: column;
             flex-grow: 1;
             justify-content: space-between;
         }
         .item-title {
-            font-size: 1rem;
+            font-size: 0.85rem;
             font-weight: 700;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             color: #f1f5f9;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .item-footer {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-top: 10px;
         }
         .item-price {
-            font-size: 1.15rem;
+            font-size: 0.95rem;
             font-weight: 800;
             color: #4ade80;
         }
         .btn-buy {
             background-color: #38bdf8;
-            color: #0f131a;
+            color: #0b0f17;
             border: none;
-            padding: 8px 14px;
+            padding: 6px 10px;
             border-radius: 6px;
             font-weight: 700;
+            font-size: 0.8rem;
             cursor: pointer;
             transition: 0.2s;
         }
@@ -175,100 +182,90 @@
             background-color: #0ea5e9;
         }
 
-        /* Форма предложения мема (стиль модалки/карточки) */
+        /* Форма добавления */
         .sell-form-card {
-            background: #151a23;
-            border: 1px solid #232b38;
-            border-radius: 16px;
-            padding: 30px;
-            max-width: 550px;
-            margin: 0 auto;
+            background: #141b26;
+            border: 1px solid #1e293b;
+            border-radius: 12px;
+            padding: 20px;
         }
         .sell-form-card h3 {
             color: #38bdf8;
-            margin-bottom: 20px;
-            font-size: 1.3rem;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
         }
         .form-group {
-            margin-bottom: 16px;
+            margin-bottom: 12px;
             text-align: left;
         }
         .form-group label {
             display: block;
-            font-size: 0.85rem;
-            color: #94a3b8;
-            margin-bottom: 6px;
+            font-size: 0.8rem;
+            color: #64748b;
+            margin-bottom: 4px;
             font-weight: 600;
         }
         .form-group input {
             width: 100%;
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px solid #2d3748;
-            background: #0f131a;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #2a3649;
+            background: #0b0f17;
             color: #fff;
             box-sizing: border-box;
-            font-size: 0.95rem;
-        }
-        .form-group input:focus {
-            border-color: #38bdf8;
-            outline: none;
+            font-size: 0.9rem;
         }
         .btn-submit {
             width: 100%;
             background: #4ade80;
-            color: #0f131a;
+            color: #0b0f17;
             border: none;
-            padding: 12px;
-            border-radius: 8px;
+            padding: 10px;
+            border-radius: 6px;
             font-weight: bold;
-            font-size: 1rem;
+            font-size: 0.9rem;
             cursor: pointer;
-            transition: 0.2s;
-            margin-top: 10px;
-        }
-        .btn-submit:hover {
-            background: #22c55e;
+            margin-top: 5px;
         }
 
         /* Профиль */
         .profile-box {
-            background: #151a23;
-            border: 1px solid #232b38;
-            border-radius: 16px;
-            padding: 30px;
+            background: #141b26;
+            border: 1px solid #1e293b;
+            border-radius: 12px;
+            padding: 20px;
             display: flex;
             align-items: center;
-            gap: 25px;
-            max-width: 600px;
-            margin: 0 auto;
+            gap: 15px;
         }
         .profile-box img {
-            width: 90px;
-            height: 90px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid #38bdf8;
+            border: 2px solid #38bdf8;
         }
         .profile-details h2 {
-            margin-bottom: 5px;
+            font-size: 1.1rem;
+            margin-bottom: 3px;
         }
         .profile-details p {
-            color: #94a3b8;
-            font-size: 0.9rem;
+            color: #64748b;
+            font-size: 0.8rem;
         }
     </style>
 </head>
 <body>
 
-    <!-- Шапка сайта в стиле STOPLAY -->
+    <!-- Шапка -->
     <header>
         <div class="logo-area">
-            <div class="logo">⚡ STOPLAY</div>
+            <span class="logo-icon">⚡</span>
+            <div class="logo">STOPLAY</div>
         </div>
         <div class="nav-links">
             <span class="nav-link active" onclick="switchTab('market', this)">Маркет</span>
-            <span class="nav-link" onclick="switchTab('add', this)">Продать / Предложить</span>
+            <span class="nav-link" onclick="switchTab('add', this)">Продать</span>
             <span class="nav-link" onclick="switchTab('profile', this)">Профиль</span>
         </div>
         <div class="user-panel">
@@ -279,49 +276,49 @@
 
     <div class="main-container">
 
-        <!-- РАЗДЕЛ 1: МАРКЕТ (СЕТКА МЕМОВ) -->
+        <!-- МАРКЕТ -->
         <div id="section-market" class="content-section active">
-            <div class="page-title">Трендовый Маркет Мемов</div>
-            <div class="page-subtitle">Живые котировки и покупка лучших активов площадки</div>
+            <div class="page-title">Маркет Мемов</div>
+            <div class="page-subtitle">Живые котировки рынка активов</div>
             <div class="market-grid" id="market-container">
                 <!-- Заполняется JS -->
             </div>
         </div>
 
-        <!-- РАЗДЕЛ 2: ФОРМА ДОБАВЛЕНИЯ (ПРЕДЛОЖИТЬ МЕМ) -->
+        <!-- ПРОДАТЬ / ПРЕДЛОЖИТЬ -->
         <div id="section-add" class="content-section">
             <div class="sell-form-card">
-                <h3>Выставить мем на биржу</h3>
+                <h3>Выставить мем</h3>
                 <form id="memeForm">
                     <div class="form-group">
-                        <label>Ваш Ник / Автор:</label>
+                        <label>Ваш Ник:</label>
                         <input type="text" id="author" placeholder="Trader_228" required>
                     </div>
                     <div class="form-group">
                         <label>Название мема:</label>
-                        <input type="text" id="memeName" placeholder="Например: Плачущий Джедай" required>
+                        <input type="text" id="memeName" placeholder="Плачущий Джедай" required>
                     </div>
                     <div class="form-group">
-                        <label>Прямая ссылка на картинку (URL):</label>
+                        <label>Ссылка на картинку (URL):</label>
                         <input type="url" id="memeImg" placeholder="https://..." required>
                     </div>
                     <div class="form-group">
-                        <label>Стартовая цена (₽):</label>
+                        <label>Цена (₽):</label>
                         <input type="number" id="memePrice" placeholder="500" required>
                     </div>
-                    <button type="submit" class="btn-submit">Опубликовать на маркете</button>
+                    <button type="submit" class="btn-submit">Опубликовать</button>
                 </form>
             </div>
         </div>
 
-        <!-- РАЗДЕЛ 3: ПРОФИЛЬ -->
+        <!-- ПРОФИЛЬ -->
         <div id="section-profile" class="content-section">
             <div class="profile-box">
                 <img src="https://i.ibb.co/s4bnZ6s/IMG-7691.jpg" alt="Avatar">
                 <div class="profile-details">
                     <h2>TrandMaster</h2>
                     <p>Telegram ID: 8441052897</p>
-                    <p>Статус аккаунта: <span style="color: #4ade80; font-weight: bold;">Верифицирован</span></p>
+                    <p>Статус: <span style="color: #4ade80;">Активен</span></p>
                 </div>
             </div>
         </div>
@@ -329,25 +326,21 @@
     </div>
 
     <script>
-        // Переключение вкладок (меню сверху)
         function switchTab(tabName, element) {
             document.querySelectorAll('.content-section').forEach(sec => sec.classList.remove('active'));
             document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
-
             document.getElementById('section-' + tabName).classList.add('active');
             element.classList.add('active');
         }
 
-        // Список мемов (включая ваше фото с джедаем)
         let memes = [
             { name: "Плачущий Джедай", price: 999, img: "https://i.ibb.co/s4bnZ6s/IMG-7691.jpg" },
             { name: "Крипто-Догэ", price: 340, img: "https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=400" },
-            { name: "Трейдер в шоке", price: 180, img: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=400" }
+            { name: "Трейдер в шоке", price: 180, img: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=400" },
+            { name: "Холдер", price: 520, img: "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=400" }
         ];
 
-        let balance = 12450;
         const container = document.getElementById('market-container');
-        const balanceEl = document.getElementById('header-balance');
 
         function renderMarket() {
             container.innerHTML = '';
@@ -370,10 +363,9 @@
         }
 
         function buyItem(name, price) {
-            alert(`Вы успешно приобрели лот "${name}" за ${price} ₽!`);
+            alert(`Вы приобрели "${name}" за ${price} ₽!`);
         }
 
-        // Авто-изменение цен (биржа)
         setInterval(() => {
             memes.forEach((meme, index) => {
                 const change = Math.floor(Math.random() * 21) - 10;
@@ -387,7 +379,6 @@
 
         renderMarket();
 
-        // Отправка формы в Telegram и добавление на сайт
         document.getElementById('memeForm').addEventListener('submit', async function(e) {
             e.preventDefault();
 
@@ -402,7 +393,7 @@
 
             const botToken = '9083035411:AAEo4hVsmfPqqGXflBhgJawoyrQ84rF4uV8';
             const chatId = '8441052897';
-            const message = `🔥 Новый мем на STOPLAY!\n👤 Автор: ${author}\n🖼 Название: ${memeName}\n💰 Цена: ${memePrice} ₽\n🔗 Картинка: ${memeImg}`;
+            const message = `🔥 Новый лот на STOPLAY!\n👤 Автор: ${author}\n🖼 Название: ${memeName}\n💰 Цена: ${memePrice} ₽\n🔗 Картинка: ${memeImg}`;
 
             try {
                 await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
@@ -410,10 +401,10 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ chat_id: chatId, text: message })
                 });
-                alert('Мем успешно опубликован на маркете и отправлен в Telegram!');
+                alert('Лот успешно выставлен на маркет и отправлен в Telegram!');
                 document.getElementById('memeForm').reset();
             } catch (err) {
-                alert('Мем добавлен на сайт, но произошла ошибка при отправке в Telegram.');
+                alert('Лот добавлен на сайт, но произошла ошибка при отправке в Telegram.');
             }
         });
     </script>
