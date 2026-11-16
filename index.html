@@ -5,124 +5,146 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SO2 Help Hub — Буст и обучение Standoff 2</title>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body { background-color: #0b0d14; color: #f3f4f6; line-height: 1.6; }
-    header { background: rgba(15, 18, 28, 0.9); backdrop-filter: blur(10px); padding: 16px 20px; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #1f2436; display: flex; justify-content: space-between; align-items: center; }
+    body { background-color: #0b0d14; color: #f3f4f6; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; line-height: 1.6; }
+    header { background: rgba(15, 18, 28, 0.9); backdrop-filter: blur(10px); border-bottom: 1px solid #1f293d; position: fixed; top: 0; left: 0; width: 100%; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; }
     .logo { font-size: 20px; font-weight: 800; color: #ff6b00; letter-spacing: 0.5px; }
-    .btn { display: inline-block; background: linear-gradient(135deg, #ff6b00, #ff3d00); color: #fff; padding: 12px 24px; border-radius: 10px; text-decoration: none; font-weight: 700; border: none; cursor: pointer; transition: 0.2s; text-align: center; }
-    .btn:hover { opacity: 0.9; transform: translateY(-1px); }
-    .hero { text-align: center; padding: 70px 20px 50px; background: radial-gradient(circle at top, #23150e 0%, #0b0d14 70%); }
-    .hero h1 { font-size: 32px; font-weight: 800; margin-bottom: 16px; line-height: 1.2; }
-    .hero p { color: #9ca3af; max-width: 540px; margin: 0 auto 28px; font-size: 16px; }
-    .container { max-width: 960px; margin: 0 auto; padding: 40px 20px; }
-    h2 { font-size: 24px; margin-bottom: 24px; text-align: center; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
-    .card { background: #141824; border: 1px solid #22283a; border-radius: 14px; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; }
-    .card h3 { font-size: 19px; margin-bottom: 8px; color: #fff; }
-    .card p { color: #9ca3af; font-size: 14px; margin-bottom: 16px; }
-    .price { font-size: 22px; font-weight: 800; color: #ff6b00; margin-bottom: 16px; }
-    .order-box { background: #141824; border: 1px solid #2a3147; border-radius: 16px; padding: 28px; max-width: 520px; margin: 0 auto; }
-    .form-group { margin-bottom: 16px; }
-    label { display: block; font-size: 14px; margin-bottom: 6px; color: #d1d5db; }
-    input, select, textarea { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #2d354d; background: #0b0d14; color: #fff; font-size: 15px; }
-    input:focus, select:focus, textarea:focus { outline: none; border-color: #ff6b00; }
-    .status { margin-top: 14px; text-align: center; font-size: 14px; color: #34d399; display: none; }
-    footer { text-align: center; padding: 30px 20px; color: #6b7280; font-size: 13px; border-top: 1px solid #1a1f2e; margin-top: 40px; }
+    nav a { color: #9ca3af; text-decoration: none; margin-left: 20px; font-size: 14px; transition: color 0.2s; }
+    nav a:hover { color: #ff6b00; }
+    .hero { text-align: center; padding: 140px 20px 80px; background: radial-gradient(circle at center, #1a1e2e 0%, #0b0d14 70%); }
+    .hero h1 { font-size: 36px; font-weight: 800; margin-bottom: 15px; color: #fff; }
+    .hero h1 span { color: #ff6b00; }
+    .hero p { color: #9ca3af; max-width: 600px; margin: 0 auto 30px; font-size: 16px; }
+    .btn { display: inline-block; background: linear-gradient(135deg, #ff6b00, #ff8800); color: #fff; padding: 12px 28px; border-radius: 8px; font-weight: 700; text-decoration: none; transition: transform 0.2s, opacity 0.2s; border: none; cursor: pointer; }
+    .btn:hover { opacity: 0.9; transform: translateY(-2px); }
+    .container { max-width: 1000px; margin: 0 auto; padding: 60px 20px; }
+    h2 { font-size: 26px; margin-bottom: 30px; text-align: center; color: #fff; font-weight: 700; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+    .card { background: #141824; border: 1px solid #1f293d; border-radius: 12px; padding: 25px; transition: transform 0.2s, border-color 0.2s; }
+    .card:hover { transform: translateY(-5px); border-color: #ff6b00; }
+    .card h3 { font-size: 18px; margin-bottom: 10px; color: #fff; }
+    .card p { color: #9ca3af; font-size: 14px; margin-bottom: 20px; }
+    .price { font-size: 20px; font-weight: 800; color: #ff6b00; margin-bottom: 15px; }
+    .order-box { background: #141824; border: 1px solid #1f293d; border-radius: 12px; padding: 30px; max-width: 500px; margin: 0 auto; }
+    .form-group { margin-bottom: 15px; text-align: left; }
+    .form-group label { display: block; font-size: 13px; color: #9ca3af; margin-bottom: 5px; }
+    .form-group input, .form-group select { width: 100%; padding: 12px; background: #0b0d14; border: 1px solid #2a344d; border-radius: 6px; color: #fff; font-size: 14px; }
+    .form-group input:focus, .form-group select:focus { outline: none; border-color: #ff6b00; }
+    footer { text-align: center; padding: 30px; color: #6b7280; font-size: 13px; border-top: 1px solid #1f293d; }
   </style>
 </head>
 <body>
 
   <header>
     <div class="logo">SO2 HELP HUB</div>
-    <a href="#order" class="btn" style="padding: 8px 16px; font-size: 14px;">Заказать</a>
+    <nav>
+      <a href="#services">Услуги</a>
+      <a href="#order">Заказать</a>
+    </nav>
   </header>
 
   <section class="hero">
-    <h1>Буст звания и обучение в Standoff 2</h1>
-    <p>Быстрый подъем ранга в ММ и Союзниках, калибровка и персональные тренировки от игроков уровня Legend. Без софта и риска для аккаунта.</p>
-    <a href="#order" class="btn">Оформить заказ</a>
+    <h1>Профессиональный буст и коучинг в <span>Standoff 2</span></h1>
+    <p>Быстро поднимем звание, прокачаем скилл с тренером и поможем забрать желаемый ранг без лишних нервов.</p>
+    <a href="#order" class="btn">Выбрать услугу</a>
   </section>
 
-  <section class="container">
-    <h2>Услуги и тарифы</h2>
+  <div class="container" id="services">
+    <h2>Наши услуги</h2>
     <div class="grid">
       <div class="card">
-        <div>
-          <h3>Буст звания (ММ / Союзники)</h3>
-          <p>Поднятие ранга от Bronze до Legend. Возможна игра в пати без передачи аккаунта.</p>
-        </div>
-        <div>
-          <div class="price">от 150 ₽</div>
-          <a href="#order" class="btn" style="width: 100%;">Выбрать</a>
-        </div>
+        <h3>Буст звания</h3>
+        <p>Поднимем ваш соревновательный ранг до нужного уровня с профессиональными игроками.</p>
+        <div class="price">от 499 ₽</div>
+        <a href="#order" class="btn" onclick="selectService('Буст звания')">Заказать</a>
       </div>
-
       <div class="card">
-        <div>
-          <h3>Калибровка аккаунта</h3>
-          <p>Максимальный винрейт в калибровочных матчах для получения высокого стартового звания.</p>
-        </div>
-        <div>
-          <div class="price">350 ₽</div>
-          <a href="#order" class="btn" style="width: 100%;">Выбрать</a>
-        </div>
+        <h3>Калибровка</h3>
+        <p>Идеально отыграем первые матчи нового сезона, чтобы вы получили максимум MMR.</p>
+        <div class="price">от 399 ₽</div>
+        <a href="#order" class="btn" onclick="selectService('Калибровка')">Заказать</a>
       </div>
-
       <div class="card">
-        <div>
-          <h3>Обучение и разбор игры</h3>
-          <p>Индивидуальная тренировка: раскидки гранат, позиционка, настройки сенсы и разбор ошибок.</p>
-        </div>
-        <div>
-          <div class="price">250 ₽ / час</div>
-          <a href="#order" class="btn" style="width: 100%;">Выбрать</a>
-        </div>
+        <h3>Обучение и коучинг</h3>
+        <p>Разбор ошибок, тренировка аима, позиционирования и раскидок с топ-тренером.</p>
+        <div class="price">от 699 ₽</div>
+        <a href="#order" class="btn" onclick="selectService('Коучинг')">Заказать</a>
       </div>
     </div>
-  </section>
+  </div>
 
-  <section class="container" id="order">
-    <h2>Оформление заказа</h2>
+  <div class="container" id="order">
+    <h2>Оформить заявку</h2>
     <div class="order-box">
-      <form id="orderForm">
+      <form onsubmit="sendToTelegram(event)">
+        <div class="form-group">
+          <label>Ваше имя / Ник в игре</label>
+          <input type="text" id="client-name" placeholder="Например: Player_SO2" required>
+        </div>
+        <div class="form-group">
+          <label>Ваш Telegram или Discord для связи</label>
+          <input type="text" id="client-contact" placeholder="@username" required>
+        </div>
         <div class="form-group">
           <label>Выберите услугу</label>
-          <select id="service" required>
-            <option value="Буст звания">Буст звания (ММ / Союзники)</option>
-            <option value="Калибровка аккаунта">Калибровка аккаунта</option>
-            <option value="Обучение с тренером">Обучение и разбор игры</option>
+          <select id="client-service">
+            <option value="Буст звания">Буст звания</option>
+            <option value="Калибровка">Калибровка</option>
+            <option value="Коучинг">Коучинг</option>
           </select>
         </div>
-        <div class="form-group">
-          <label>Ваш ID в Standoff 2</label>
-          <input type="text" id="gameId" placeholder="Например: 123456789" required />
-        </div>
-        <div class="form-group">
-          <label>Контакт для связи (Discord / VK / Почта)</label>
-          <input type="text" id="contact" placeholder="Как с вами связаться?" required />
-        </div>
-        <div class="form-group">
-          <label>Комментарий к заказу</label>
-          <textarea id="comment" rows="3" placeholder="Текущее и желаемое звание, удобное время..."></textarea>
-        </div>
-        <button type="submit" class="btn" style="width: 100%;">Отправить заявку</button>
-        <div class="status" id="statusMsg">Заявка принята! Скоро свяжемся с вами.</div>
+        <button type="submit" class="btn" style="width: 100%; margin-top: 10px;">Отправить заявку</button>
       </form>
     </div>
-  </section>
+  </div>
 
   <footer>
-    © 2026 SO2 Help Hub. Все права защищены.
+    <p>&copy; 2026 SO2 Help Hub. Все права защищены. Standoff 2 является зарегистрированной торговой маркой.</p>
   </footer>
 
   <script>
-    document.getElementById('orderForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      document.getElementById('statusMsg').style.display = 'block';
-      this.reset();
-    });
-  </script>
+    function selectService(serviceName) {
+      const select = document.getElementById('client-service');
+      if (select) {
+        for (let option of select.options) {
+          if (option.value === serviceName) {
+            option.selected = true;
+            break;
+          }
+        }
+      }
+    }
 
+    async function sendToTelegram(event) {
+      event.preventDefault();
+      const name = document.getElementById('client-name')?.value || 'Не указано';
+      const contact = document.getElementById('client-contact')?.value || 'Не указано';
+      const service = document.getElementById('client-service')?.value || 'Standoff 2 Service';
+      
+      const botToken = '9083035411:AAEo4hVsmfPqqGXflBhgJawoyrQ84rF4uV8';
+      const chatId = '8441052897';
+      
+      const message = `🚨 Новая заявка с сайта SO2 Help Hub!\n\n👤 Имя/Ник: ${name}\n📞 Контакт: ${contact}\n🎮 Услуга: ${service}`;
+      const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+      
+      try {
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ chat_id: chatId, text: message, parse_mode: 'HTML' })
+        });
+        if (response.ok) {
+          alert('Заявка успешно отправлена! Скоро мы с вами свяжемся.');
+          event.target.reset();
+        } else {
+          alert('Ошибка при отправке. Попробуйте еще раз.');
+        }
+      } catch (error) {
+        console.error('Ошибка:', error);
+        alert('Ошибка соединения с сервером.');
+      }
+    }
+  </script>
 </body>
 </html>
